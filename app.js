@@ -72,7 +72,13 @@ app.put('/todos/:id', (req, res) => {
 })
 
 app.delete('/todos/:id', (req, res) => {
-    res.send(`delete todos id: ${req.params.id}`)
+    const id = req.params.id
+    return Todo.destroy({
+        where: {
+            id: id
+        }
+    })
+        .then(() => res.redirect('/todos'))
 })
 
 
