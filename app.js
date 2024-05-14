@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
-    res.render('index')
+    res.redirect('/todos')
 })
 
 app.get('/todos', (req, res) => {
@@ -37,7 +37,7 @@ app.post('/todos', (req, res) => {
     const name = req.body.name
     return Todo.create({ name })
         .then(() => res.redirect('/todos'))
-        .catch((err) => console.lof(err))
+        .catch((err) => console.log(err))
 })
 
 app.get('/todos/:id', (req, res) => {
