@@ -5,6 +5,9 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const router = require('./routes')
 
+const messageHandler = require('./middlewares/message-handler')
+const errorHandler = require('./middlewares/error-handler')
+
 const app = express()
 const port = 3000
 
@@ -20,9 +23,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-app.use(flash())
 
+app.use(flash())
+app.use(messageHandler)
 app.use(router)
+app.use(errorHandler)
 
 
 
