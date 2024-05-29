@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
             return res.redirect('/todos')
         })
         .catch((error) => {
-            error.Message = '新增失敗'
+            error.errorMessage('新增失敗')
             next(error)
         })
 
