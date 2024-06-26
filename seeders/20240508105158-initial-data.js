@@ -7,6 +7,7 @@ module.exports = {
       Array.from({ length: 10 }).map((_, i) => 
         ({
           name: `todo-${i}`,
+          isComplete: false,
           createdAt: new Date(),
           updatedAt: new Date()
         })
