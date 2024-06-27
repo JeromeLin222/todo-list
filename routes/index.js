@@ -10,6 +10,7 @@ const authHandler = require('../middlewares/auth-handler')
 
 const db = require('../models')
 const User = db.User
+const bcrypt = require('bcryptjs')
 
 passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
     return User.findOne({
@@ -17,11 +18,19 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, 
         where: {email: username},
         raw: true
     })
+
     .then((user) => {
-        if (!user || user.password !== password) {
+        console.log('user: ', user)
+        if (!user) {
             return done(null, false, {message: 'email 或密碼錯誤'})
         }
-        return done(null, user)
+        return bcrypt.compare(password, user.password)
+            .then((isMatch) => {
+                if (!isMatch) {
+                    return done(null, false, {message: 'email 或密碼錯誤'})
+                }
+                return done(null, user)
+            })
     })
     .catch((error) => {
         error.errorMessage = '登入失敗'
