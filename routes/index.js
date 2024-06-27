@@ -30,11 +30,9 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, 
 }))
 passport.serializeUser((user, done) => {
     const {id, name, email} = user
-    console.log('serialize: ', user)
     return done(null, {id, name, email})
 })
 passport.deserializeUser((user, done) => {
-    console.log('deserialize: ', user)
     done(null, { id: user.id })
 })
 

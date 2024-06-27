@@ -1,7 +1,7 @@
 {{> navbar}}
 {{> message}}
 <p>
-    <input type="checkbox" disabled {{#if this.isComplete}} checked {{/if}}>
+    <input type="checkbox" name="isComplete" value="completed" disabled {{#if todo.isComplete}} checked {{/if}}>
 </p>
 <p>{{ todo.name }}</p>
 <a href="/todos/{{ todo.id }}/edit">edit</a>
